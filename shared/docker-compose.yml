@@ -1,0 +1,113 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: ethiotrust_db
+    environment:
+      POSTGRES_USER: ethiotrust
+      POSTGRES_PASSWORD: ethiotrust123
+      POSTGRES_DB: ethiotrust
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - ethiotrust-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ethiotrust"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  identity-service:
+    build: ../services/identity-service
+    container_name: identity-service
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql://ethiotrust:ethiotrust123@db:5432/ethiotrust
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - ethiotrust-network
+    volumes:
+      - ../services/identity-service:/app
+    restart: unless-stopped
+
+  auth-service:
+    build: ../services/auth-service
+    container_name: auth-service
+    ports:
+      - "8003:8003"
+    environment:
+      SECRET_KEY: "hackathon_secret_2025"
+    networks:
+      - ethiotrust-network
+    volumes:
+      - ../services/auth-service:/app
+    restart: unless-stopped
+
+  card-service:
+    build: ../services/card-service
+    container_name: card-service
+    ports:
+      - "8002:8002"
+    depends_on:
+      - identity-service
+    networks:
+      - ethiotrust-network
+    volumes:
+      - ../services/card-service:/app
+    restart: unless-stopped
+
+  ai-verification:
+    build: ../services/ai-verification
+    container_name: ai-verification
+    ports:
+      - "8001:8001"
+    environment:
+      IDENTITY_SERVICE_URL: http://identity-service:8000
+    depends_on:
+      - identity-service
+    networks:
+      - ethiotrust-network
+    volumes:
+      - ../services/ai-verification:/app
+    restart: unless-stopped
+
+  security-service:
+    build: ../services/security-service
+    container_name: security-service
+    ports:
+      - "8004:8004"
+    networks:
+      - ethiotrust-network
+    volumes:
+      - ../services/security-service:/app
+    restart: unless-stopped
+
+  api-gateway:
+    image: nginx:alpine
+    container_name: api-gateway
+    ports:
+      - "80:80"
+    volumes:
+      - ../nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - identity-service
+      - auth-service
+      - card-service
+      - ai-verification
+      - security-service
+    networks:
+      - ethiotrust-network
+    restart: unless-stopped
+
+networks:
+  ethiotrust-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
