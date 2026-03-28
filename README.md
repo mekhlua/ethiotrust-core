@@ -64,7 +64,6 @@ EthioTrust is a complete **microservices platform** for digital identity verific
 
 ### Run with Docker
 
-```bash
 # Clone the repository
 git clone https://github.com/mekhlua/ethiotrust-core.git
 cd ethiotrust-core/shared
@@ -83,25 +82,25 @@ curl -X POST http://localhost:8003/api/v1/keys/register \
   📡 API Endpoints
 Identity Service (Port 8000)
 Method  	Endpoint	                  Description
-GET	        /health	                      Health check
+GET	        /health	                    Health check
 POST	  /api/v1/identity/register	      Register user
 
 AI Service (Port 8001)
 Method	 Endpoint	                      Description
 GET	       /health	                       Health check 
-POST	  /api/v1/verify/face	           Face verification
-GET	     /api/v1/ai/metrics/dashboard	   AI performance metrics
+POST	    /api/v1/verify/face	             Face verification
+GET	     /api/v1/ai/metrics/dashboard	     AI performance metrics
 
 Card Service (Port 8002)
 Method	      Endpoint	                      Description
 GET	           /health	                       Health check
-POST	      /api/v1/cards/issue	           ssue digital card
-POST	     /api/v1/cards/authorize	       Process transaction
+POST	      /api/v1/cards/issue	               issue digital card
+POST	     /api/v1/cards/authorize	           Process transaction
 
 Auth Service (Port 8003)
 Method	     Endpoint	                         Description
 GET        	/health	                               Health check
-POST	   /api/v1/keys/register	               Get API key
+POST	   /api/v1/keys/register	                   Get API key
 GET	      /api/v1/keys/validate	                   Validate API key
 
 Security Service (Port 8004)
@@ -132,9 +131,9 @@ Make transactions
 
 Metric                   	   Value
 Face Recognition Accuracy	   98.5%
-Liveness Detection	           99.2%
-OCR Accuracy (Fayda ID)	       97.8%
-Fairness Score	               0.97
+Liveness Detection	         99.2%
+OCR Accuracy (Fayda ID)	     97.8%
+Fairness Score	             0.97
 False Acceptance Rate	       0.1%
 
 🛠️ Tech Stack
