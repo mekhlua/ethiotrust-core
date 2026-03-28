@@ -75,36 +75,40 @@ docker-compose up -d
 # Check if all services are running
 docker ps
 
-#Get Your API Key
-
+#Get your Api key
 curl -X POST http://localhost:8003/api/v1/keys/register \
   -H "Content-Type: application/json" \
   -d '{"name":"Your Name","email":"your@email.com"}'
 
-📡 API Endpoints
+  📡 API Endpoints
 Identity Service (Port 8000)
-Method	Endpoint	Description
-GET	/health	Health check
-POST	/api/v1/identity/register	Register user
+Method  	Endpoint	                  Description
+GET	        /health	                      Health check
+POST	  /api/v1/identity/register	      Register user
+
 AI Service (Port 8001)
-Method	Endpoint	Description
-GET	/health	Health check
-POST	/api/v1/verify/face	Face verification
-GET	/api/v1/ai/metrics/dashboard	AI performance metrics
+Method	 Endpoint	                      Description
+GET	       /health	                       Health check 
+POST	  /api/v1/verify/face	           Face verification
+GET	     /api/v1/ai/metrics/dashboard	   AI performance metrics
+
 Card Service (Port 8002)
-Method	Endpoint	Description
-GET	/health	Health check
-POST	/api/v1/cards/issue	Issue digital card
-POST	/api/v1/cards/authorize	Process transaction
+Method	      Endpoint	                      Description
+GET	           /health	                       Health check
+POST	      /api/v1/cards/issue	           ssue digital card
+POST	     /api/v1/cards/authorize	       Process transaction
+
 Auth Service (Port 8003)
-Method	Endpoint	Description
-GET	/health	Health check
-POST	/api/v1/keys/register	Get API key
-GET	/api/v1/keys/validate	Validate API key
+Method	     Endpoint	                         Description
+GET        	/health	                               Health check
+POST	   /api/v1/keys/register	               Get API key
+GET	      /api/v1/keys/validate	                   Validate API key
+
 Security Service (Port 8004)
-Method	Endpoint	Description
-GET	/health	Health check
-POST	/api/v1/security/tokenize	Tokenize sensitive data
+Method	     Endpoint	                  Description
+GET        	 /health	                   Health check
+POST	     /api/v1/security/tokenize	   Tokenize sensitive data
+
 🎯 Demo
 Developer Portal
 Open shared/index.html in your browser to see the developer portal with full API documentation.
@@ -112,37 +116,38 @@ Open shared/index.html in your browser to see the developer portal with full API
 Banking Dashboard
 Open shared/test-dashboard.html to experience the complete banking flow:
 
-Take live selfie
+  1.Take live selfie
 
-Upload Fayda ID
+  2.Upload Fayda ID
 
-AI face verification
+  3.AI face verification
 
-Create security PIN
+  4.Create security PIN
 
-Issue digital card
+  5.Issue digital card
 
 Make transactions
 
 📊 AI Metrics
-Metric   	               Value
-Face Recognition Accuracy	98.5%
-Liveness Detection	        99.2%
-OCR Accuracy (Fayda ID)	    97.8%
-Fairness Score	            0.97
-False Acceptance Rate	    0.1%
+
+Metric                   	   Value
+Face Recognition Accuracy	   98.5%
+Liveness Detection	           99.2%
+OCR Accuracy (Fayda ID)	       97.8%
+Fairness Score	               0.97
+False Acceptance Rate	       0.1%
 
 🛠️ Tech Stack
-Layer	      Technology
-Backend	     Python 3.11 / FastAPI
-Container	 Docker / Docker Compose
-Database	 PostgreSQL
-AI/ML	     OpenCV, face_recognition, TensorFlow
-Security	 JWT, API Keys, Tokenization
-Frontend	 HTML5, CSS3, JavaScript
+
+Layer	           Technology
+Backend         	Python 3.11 / FastAPI
+Container	        Docker / Docker Compose
+Database	        PostgreSQL
+AI/ML	            OpenCV, face_recognition, TensorFlow
+Security	        JWT, API Keys, Tokenization
+Frontend	        HTML5, CSS3, JavaScript
 
 👥 Use Cases
-
 Banks: Customer onboarding, KYC verification
 
 Fintech: Digital payments, user authentication
